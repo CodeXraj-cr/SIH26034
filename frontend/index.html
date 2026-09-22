@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MetraCheck Prototype</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon">✓</span><span>MetraCheck</span></div>
+    <nav>
+      <button class="nav active" data-view="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav" data-view="scan">⌕ <span>Scan Product</span></button>
+      <button class="nav" data-view="history">◷ <span>Inspection History</span></button>
+      <button class="nav" data-view="reports">▤ <span>Reports</span></button>
+      <button class="nav" data-view="rules">◇ <span>Compliance Rules</span></button>
+    </nav>
+    <div class="side-help"><b>Legal Metrology</b><br>Simple rule-based packaged commodity inspection.</div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">ENFORCEMENT WORKSPACE</div>
+        <h1 id="pageTitle">Compliance Dashboard</h1>
+      </div>
+      <button class="primary" id="newScan">+ New Scan</button>
+    </header>
+
+    <section id="dashboard" class="view active">
+      <div class="hero-grid">
+        <div class="card hero">
+          <div class="eyebrow">PACKAGED COMMODITY INSPECTION</div>
+          <h2>Check product labels before they reach the shelf.</h2>
+          <p>Upload a package image, extract declarations and review compliance findings in one simple workflow.</p>
+          <div class="dropzone" id="dashboardDrop">
+            <div class="upload-icon">↑</div>
+            <b>Drop a product image here</b>
+            <small>JPG, PNG or WEBP</small>
+            <button class="primary" id="dashboardScan">Start scanning</button>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="card stat"><span>Scanned today</span><strong id="scannedCount">128</strong></div>
+          <div class="card stat"><span>Compliant</span><strong class="green">96</strong></div>
+          <div class="card stat"><span>Needs review</span><strong>21</strong></div>
+          <div class="card stat"><span>Violations</span><strong class="red">11</strong></div>
+        </div>
+      </div>
+      <div class="section-head"><h3>Latest inspections</h3><span>Recent prototype records</span></div>
+      <div class="card table-wrap">
+        <table><thead><tr><th>Product</th><th>Declarations</th><th>Readability</th><th>Status</th></tr></thead>
+        <tbody id="recentTable"></tbody></table>
+      </div>
+    </section>
+
+    <section id="scan" class="view">
+      <div class="card content">
+        <div class="eyebrow">NEW INSPECTION</div>
+        <h2>Scan a packaged commodity</h2>
+        <p>Select a package image. The Python backend will receive it and run the prototype compliance workflow.</p>
+        <div class="dropzone large" id="scanDrop">
+          <div class="upload-icon">⌁</div>
+          <b id="fileName">Choose a product image</b>
+          <small>Use a clear label/package photograph.</small>
+          <input id="fileInput" type="file" accept="image/*" hidden>
+          <button class="primary" id="chooseFile">Choose image</button>
+        </div>
+        <div class="scan-actions">
+          <button class="primary" id="analyzeBtn" disabled>Analyze product</button>
+          <span id="scanStatus"></span>
+        </div>
+        <div id="analysisResult"></div>
+      </div>
+    </section>
+
+    <section id="history" class="view">
+      <div class="card content"><div class="eyebrow">REPOSITORY</div><h2>Inspection history</h2><p>Previously scanned products and their compliance status.</p></div>
+      <div class="card table-wrap history-table"><table><thead><tr><th>Date</th><th>Product</th><th>Declarations</th><th>Status</th></tr></thead><tbody id="historyTable"></tbody></table></div>
+    </section>
+
+    <section id="reports" class="view">
+      <div class="report-grid">
+        <div class="card content"><div class="eyebrow">SAMPLE REPORT</div><h2>Compliance score</h2><div class="score" id="score">82%</div><div class="progress"><i id="progress"></i></div><p>Prototype result based on extracted declarations and validation checks.</p><button class="primary" id="exportBtn">Export report</button></div>
+        <div class="card content"><div class="eyebrow">FINDINGS</div><h2>Inspection summary</h2><div id="findings"></div></div>
+      </div>
+    </section>
+
+    <section id="rules" class="view">
+      <div class="card content"><div class="eyebrow">RULE REFERENCE</div><h2>Packaged commodity checks</h2><p>The prototype follows the functional requirements from the supplied problem statement.</p>
+        <div class="rule-grid">
+          <div class="rule"><b>Manufacturer / packer / importer</b><span>Name and address information.</span></div>
+          <div class="rule"><b>Net quantity</b><span>Quantity declaration.</span></div>
+          <div class="rule"><b>Maximum Retail Price</b><span>MRP declaration.</span></div>
+          <div class="rule"><b>Manufacture / packing / import date</b><span>Month and year information.</span></div>
+          <div class="rule"><b>Consumer care details</b><span>Consumer-facing contact information.</span></div>
+          <div class="rule"><b>Readability & placement</b><span>Visibility, font size and placement.</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
